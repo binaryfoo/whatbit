@@ -1,0 +1,15 @@
+<div>
+  <div>
+    <label>
+      Hex:
+      <input type="text" ng-model="hex" ng-keydown="keyDown($event)" keep-selection/>
+    </label>
+  </div>
+
+  <div>
+    <h3>Bits</h3>
+    <ul>
+      <li ng-repeat="bit in bits">{{bit}}</li>
+    </ul>
+  </div>
+</div>
