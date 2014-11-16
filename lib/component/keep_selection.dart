@@ -1,4 +1,4 @@
-library unhexme_selectinput_component;
+library whatbit_keepselection_component;
 
 import 'package:angular/angular.dart';
 import 'dart:html';

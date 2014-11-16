@@ -1,4 +1,4 @@
-library unhexme_unhexifier_component;
+library whatbit_unhexme_component;
 
 import 'package:angular/angular.dart';
 import 'package:hexbit/hexbit.dart';
