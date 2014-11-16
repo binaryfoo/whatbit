@@ -13,4 +13,5 @@ transformers:
 - angular:
     html_files:
       - lib/component/unhex.html
+      - lib/component/unhex.css
     dart_sdk: "/usr/local/opt/dart/libexec"

@@ -5,7 +5,7 @@ import 'package:hexbit/hexbit.dart';
 import 'package:hexbit/math.dart';
 import 'dart:html';
 
-@Component(selector: 'unhex', templateUrl: 'unhex.html')
+@Component(selector: 'unhex', templateUrl: 'unhex.html', cssUrl: 'unhex.css')
 class UnHexMe {
   String hex = "";
   String lastHexServed = "";
@@ -19,6 +19,8 @@ class UnHexMe {
     }
     return lastSetServed;
   }
+
+  bool get hasInput => hex != null && hex.length > 0;
 
   void keyDown(KeyboardEvent event) {
     InputElement input = event.target;
