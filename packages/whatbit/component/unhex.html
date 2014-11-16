@@ -2,8 +2,11 @@
   <div>
     <label>
       Hex:
-      <input type="text" ng-model="hex" ng-keydown="keyDown($event)" keep-selection/>
+      <input type="text" ng-model="hex" ng-keydown="keyDown($event)" keep-selection placeholder="A hex string. Eg '3f'"/>
     </label>
+    <div>
+      <small ng-show="hasInput">Try pressing up or down arrows</small>
+    </div>
   </div>
 
   <div>
