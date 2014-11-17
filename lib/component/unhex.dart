@@ -7,33 +7,38 @@ import 'dart:html';
 
 @Component(selector: 'unhex', templateUrl: 'unhex.html', cssUrl: 'unhex.css')
 class UnHexMe {
-  String hex = "";
-  String lastHexServed = "";
-  List<Bit> _bits = [];
+  String _hex = "";
+  List<Bit> _bits = []; // need to mutate to prevent change detection algorithm think everything has changed
   Scope _scope;
 
-  List<Bit> get bits {
-    if (hex.length % 2 == 0 && lastHexServed != hex) {
-      int i = 0;
-      Bit.fromHex(hex).forEach((newBit) {
-        Bit oldBit = i < _bits.length ? _bits[i] : null;
-        if (oldBit != null && oldBit.absoluteBitNumber == newBit.absoluteBitNumber) {
-          oldBit.set = newBit.set;
-        } else {
-          if (oldBit != null) _bits.removeAt(i);
-          _bits.add(newBit);
-        }
-        i++;
-      });
-      if (i != _bits.length) {
-        _bits.removeRange(i, _bits.length);
-      }
-      lastHexServed = hex;
+  String get hex => _hex;
+  void set hex(String val) {
+    _hex = val;
+    if (val.length % 2 == 0) {
+      _updateBits(val);
     }
-    return _bits;
   }
 
-  bool get hasInput => hex != null && hex.length > 0;
+  _updateBits(String hex) {
+    int i = 0;
+    Bit.fromHex(hex).forEach((newBit) {
+      Bit oldBit = i < _bits.length ? _bits[i] : null;
+      if (oldBit != null && oldBit.absoluteBitNumber == newBit.absoluteBitNumber) {
+        oldBit.set = newBit.set;
+      } else {
+        if (oldBit != null) _bits.removeAt(i);
+        _bits.add(newBit);
+      }
+      i++;
+    });
+    if (i != _bits.length) {
+      _bits.removeRange(i, _bits.length);
+    }
+  }
+
+  List<Bit> get bits => _bits;
+
+  bool get hasInput => _hex != null && _hex.length > 0;
 
   void keyDown(KeyboardEvent event) {
     InputElement input = event.target;
