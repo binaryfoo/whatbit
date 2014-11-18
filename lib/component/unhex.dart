@@ -3,6 +3,7 @@ library whatbit_unhexme_component;
 import 'package:angular/angular.dart';
 import 'package:hexbit/hexbit.dart';
 import 'package:hexbit/math.dart';
+import 'package:whatbit/component/hex_parser.dart';
 import 'dart:html';
 
 @Component(selector: 'unhex', templateUrl: 'unhex.html', cssUrl: 'unhex.css')
@@ -20,20 +21,7 @@ class UnHexMe {
   }
 
   _updateBits(String hex) {
-    int i = 0;
-    Bit.fromHex(hex).forEach((newBit) {
-      Bit oldBit = i < _bits.length ? _bits[i] : null;
-      if (oldBit != null && oldBit.absoluteBitNumber == newBit.absoluteBitNumber) {
-        oldBit.set = newBit.set;
-      } else {
-        if (oldBit != null) _bits.removeAt(i);
-        _bits.add(newBit);
-      }
-      i++;
-    });
-    if (i != _bits.length) {
-      _bits.removeRange(i, _bits.length);
-    }
+    HexStringParser.updateBitList(hex, _bits);
   }
 
   List<Bit> get bits => _bits;
@@ -73,34 +61,34 @@ class UnHexMe {
   }
 }
 
-@Decorator(selector: 'bit')
-class BitFormatter implements AttachAware {
-  Bit _b;
-  Element e;
-  Scope scope;
-  Animate animate;
-
-  BitFormatter(this.e, this.scope, this.animate);
-
-  @NgOneWay('b')
-  void set b(Bit val) {
-    _b = val;
-  }
-
-  void attach() {
-    scope.watch("bit.value", (value, oldValue) {
-      var bitVals = e.getElementsByClassName("bit-val");
-      if (bitVals.isEmpty) {
-        e.setInnerHtml('Byte ${_b.byteNumber} Bit ${_b.bitNumber} = <span class="bit-val">${_b.value}</span>');
-      } else {
-        animate.remove(bitVals).onCompleted.then((r) {
-          Element bitVal = e.ownerDocument.createElement("span");
-          bitVal.className = "bit-val";
-          bitVal.text = _b.value;
-          animate.insert([bitVal], e);
-        });
-      }
-    });
-  }
-
-}
+//@Decorator(selector: 'bit')
+//class BitFormatter implements AttachAware {
+//  Bit _b;
+//  Element e;
+//  Scope scope;
+//  Animate animate;
+//
+//  BitFormatter(this.e, this.scope, this.animate);
+//
+//  @NgOneWay('b')
+//  void set b(Bit val) {
+//    _b = val;
+//  }
+//
+//  void attach() {
+//    scope.watch("bit.value", (value, oldValue) {
+//      var bitVals = e.getElementsByClassName("bit-val");
+//      if (bitVals.isEmpty) {
+//        e.setInnerHtml('Byte ${_b.byteNumber} Bit ${_b.bitNumber} = <span class="bit-val">${_b.value}</span>');
+//      } else {
+//        animate.remove(bitVals).onCompleted.then((r) {
+//          Element bitVal = e.ownerDocument.createElement("span");
+//          bitVal.className = "bit-val";
+//          bitVal.text = _b.value;
+//          animate.insert([bitVal], e);
+//        });
+//      }
+//    });
+//  }
+//
+//}
