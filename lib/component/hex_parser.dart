@@ -1,7 +1,7 @@
 library whatbit_hex_parser;
 
-import 'package:angular/angular.dart';
 import 'package:hexbit/hexbit.dart';
+import 'dart:math';
 
 class HexStringParser {
 
@@ -31,21 +31,29 @@ class HexStringParser {
    */
   static groupBitsIntoBytes(List<Byte> bytes, List<Bit> bits) {
     List<Bit> currentBits = [];
-    int currentByte = bytes.length;
-    for (var i = (bytes.length * 8); i < bits.length; i++) {
-      Bit bit = bits[i];
-      if (currentByte != bit.byteNumber && currentBits.isNotEmpty) {
-        bytes.add(new Byte(currentByte, currentBits));
-        currentBits = [];
+    int newByteCount = (bits.length/8).floor();
+    if (newByteCount > bytes.length) {
+      int currentByte = 0;
+      for (var i = (bytes.length * 8); i < bits.length; i++) {
+        Bit bit = bits[i];
+        if (currentByte != bit.byteNumber && currentBits.isNotEmpty) {
+          bytes.add(new Byte(currentByte, currentBits));
+          currentBits = [];
+        }
+        currentByte = bit.byteNumber;
+        currentBits.add(bit);
       }
-      currentByte = bit.byteNumber;
-      currentBits.add(bit);
+      if (currentByte != 0 && currentBits.isNotEmpty) {
+        bytes.add(new Byte(currentByte, currentBits));
+      }
+    } else {
+      bytes.removeRange(newByteCount, bytes.length);
     }
-    if (currentByte != 0 && currentBits.isNotEmpty) {
-      bytes.add(new Byte(currentByte, currentBits));
-    } else if (currentByte > bits.length/8) {
-      bytes.removeRange(currentByte - 1, bytes.length);
-    }
+  }
+
+  static update(String hex, List<Byte> bytes, List<Bit> bits) {
+    updateBitList(hex, bits);
+    groupBitsIntoBytes(bytes, bits);
   }
 }
 

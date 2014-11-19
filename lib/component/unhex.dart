@@ -17,13 +17,8 @@ class UnHexMe {
   void set hex(String val) {
     _hex = val;
     if (val.length % 2 == 0) {
-      _updateBits(val);
+      HexStringParser.update(hex, _bytes, _bits);
     }
-  }
-
-  _updateBits(String hex) {
-    HexStringParser.updateBitList(hex, _bits);
-    HexStringParser.groupBitsIntoBytes(_bytes, _bits);
   }
 
   List<Bit> get bits => _bits;

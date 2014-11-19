@@ -8,7 +8,7 @@ dependencies:
   hexbit:
     path: ../dart-bertlv
 dev_dependencies:
-#  unittest: any
+  unittest: any
 transformers:
 - angular:
     html_files:
