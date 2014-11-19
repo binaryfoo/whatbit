@@ -31,8 +31,9 @@ class HexStringParser {
    */
   static groupBitsIntoBytes(List<Byte> bytes, List<Bit> bits) {
     List<Bit> currentBits = [];
-    int currentByte = 0;
-    for (Bit bit in bits) {
+    int currentByte = bytes.length;
+    for (var i = (bytes.length * 8); i < bits.length; i++) {
+      Bit bit = bits[i];
       if (currentByte != bit.byteNumber && currentBits.isNotEmpty) {
         bytes.add(new Byte(currentByte, currentBits));
         currentBits = [];
@@ -42,6 +43,8 @@ class HexStringParser {
     }
     if (currentByte != 0 && currentBits.isNotEmpty) {
       bytes.add(new Byte(currentByte, currentBits));
+    } else if (currentByte > bits.length/8) {
+      bytes.removeRange(currentByte - 1, bytes.length);
     }
   }
 }

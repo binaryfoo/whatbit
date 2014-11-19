@@ -10,6 +10,7 @@ import 'dart:html';
 class UnHexMe {
   String _hex = "";
   List<Bit> _bits = []; // need to mutate to prevent change detection algorithm think everything has changed
+  List<Byte> _bytes = [];
   Scope _scope;
 
   String get hex => _hex;
@@ -22,9 +23,14 @@ class UnHexMe {
 
   _updateBits(String hex) {
     HexStringParser.updateBitList(hex, _bits);
+    HexStringParser.groupBitsIntoBytes(_bytes, _bits);
   }
 
   List<Bit> get bits => _bits;
+
+  List<Byte> get bytes {
+    return _bytes;
+  }
 
   bool get hasInput => _hex != null && _hex.length > 0;
 
@@ -60,35 +66,3 @@ class UnHexMe {
     }
   }
 }
-
-//@Decorator(selector: 'bit')
-//class BitFormatter implements AttachAware {
-//  Bit _b;
-//  Element e;
-//  Scope scope;
-//  Animate animate;
-//
-//  BitFormatter(this.e, this.scope, this.animate);
-//
-//  @NgOneWay('b')
-//  void set b(Bit val) {
-//    _b = val;
-//  }
-//
-//  void attach() {
-//    scope.watch("bit.value", (value, oldValue) {
-//      var bitVals = e.getElementsByClassName("bit-val");
-//      if (bitVals.isEmpty) {
-//        e.setInnerHtml('Byte ${_b.byteNumber} Bit ${_b.bitNumber} = <span class="bit-val">${_b.value}</span>');
-//      } else {
-//        animate.remove(bitVals).onCompleted.then((r) {
-//          Element bitVal = e.ownerDocument.createElement("span");
-//          bitVal.className = "bit-val";
-//          bitVal.text = _b.value;
-//          animate.insert([bitVal], e);
-//        });
-//      }
-//    });
-//  }
-//
-//}
