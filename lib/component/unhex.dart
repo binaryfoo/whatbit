@@ -32,6 +32,8 @@ class UnHexMe {
     return _bytes;
   }
 
+  List<int> bitNumbers = new List.generate(8, (i) => 8 - i);
+
   bool get hasInput => _hex != null && _hex.length > 0;
 
   void keyDown(KeyboardEvent event) {

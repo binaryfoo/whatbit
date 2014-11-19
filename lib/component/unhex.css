@@ -36,3 +36,39 @@ small {
 .bit-val.ng-leave.ng-leave-active {
     opacity: 0;
 }
+
+.faded-add {
+    opacity: 1;
+    -webkit-transition: 200ms;
+    -moz-transition: 200ms;
+    -ms-transition: 200ms;
+    -o-transition: 200ms;
+    transition: 200ms;
+}
+.faded-add-active {
+    opacity: 0;
+}
+
+.faded {
+    opacity: 0;
+}
+
+.faded-remove {
+    opacity: 0;
+    -webkit-transition: 200ms;
+    -moz-transition: 200ms;
+    -ms-transition: 200ms;
+    -o-transition: 200ms;
+    transition: 200ms;
+}
+.faded-remove-active {
+    opacity: 1;
+}
+
+span {
+    display: inline-block;
+}
+
+.byte {
+    font-family: monospace;
+}
