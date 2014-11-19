@@ -19,19 +19,24 @@ class ByteRenderer {
   Byte get byte => _byte;
 }
 
-@Decorator(selector: 'bit')
+@Decorator(selector: 'bit', exportExpressions: const ['bits', 'value'])
 class BitRenderer implements AttachAware {
 
-  NgModel model;
+  int _i;
   Element e;
   Scope scope;
   Animate animate;
 
-  BitRenderer(this.e, this.scope, this.animate, this.model);
+  BitRenderer(this.e, this.scope, this.animate);
+
+  @NgOneWay('i')
+  void set index(val) {
+    _i = val;
+  }
 
   void attach() {
-    model.render = (val) {
-      if (e.text == "") {
+    scope.watch("byte.bits[$_i].value", (val, priorVal) {
+      if (priorVal == null || priorVal == "") {
         e.text = val;
       } else {
         animate.addClass(e, "faded").onCompleted.then((r) {
@@ -39,7 +44,7 @@ class BitRenderer implements AttachAware {
           animate.removeClass(e, "faded");
         });
       }
-    };
+    });
   }
 
 }
