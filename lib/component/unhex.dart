@@ -10,23 +10,20 @@ import 'dart:math';
 @Component(selector: 'unhex', templateUrl: 'unhex.html', cssUrl: 'unhex.css')
 class UnHexMe {
   String _hex = "";
-  List<Bit> _bits = [];
+  BitSet _bits = new BitSet();
   Scope _scope;
 
   String get hex => _hex;
   void set hex(String val) {
     _hex = val;
     if (val.length % 2 == 0) {
-      _bits = Bit.fromHex(hex).toList();
+      _bits = Bit.fromHex(hex);
     }
   }
 
-  Bit bit(int byte, int bit) {
-    var index = (byte - 1) * 8 + bit - 1;
-    return index < _bits.length ? _bits[index] : null;
-  }
+  Bit bit(int byte, int bit) => _bits.bit(byte, bit);
 
-  Iterable<int> get bytes => q.range(1, (_bits.length ~/ 8) + 1);
+  Iterable<int> get bytes => q.range(1, _bits.byteCount + 1);
 
   Iterable<int> bitNumbers = q.range(8, 0, -1);
 
