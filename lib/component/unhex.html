@@ -20,7 +20,7 @@
       <tbody>
         <tr class="byte" ng-repeat="b in bytes">
           <td>{{b}}</td>
-          <td ng-repeat="n in bitNumbers"><bit byte="b" bit="n"></bit></td>
+          <td ng-repeat="n in bitNumbers"><bit ng-model="bit(b,n).value"></bit></td>
           <td class="right-align">{{byteAsDecimal(b)}}</td>
           <td class="right-align">{{byteAsCharacter(b)}}</td>
         </tr>
