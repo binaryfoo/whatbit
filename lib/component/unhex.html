@@ -12,10 +12,10 @@
   <div>
     <h3>Bits</h3>
     <ul>
-      <li class="bit" ng-repeat="byte in bytes">
+      <li class="bit" ng-repeat="b in bytes">
         <div class="byte">
-          <span class="number">Byte {{$index+1}}:</span>
-          <span class="bit" ng-repeat="n in bitNumbers"><bit bit="n"></bit></span>
+          <span class="number">Byte {{b}}:</span>
+          <span class="bit" ng-repeat="n in bitNumbers"><bit byte="b" bit="n"></bit></span>
         </div>
       </li>
     </ul>

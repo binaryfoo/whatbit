@@ -3,9 +3,10 @@ library whatbit_byte_renderer;
 import 'package:angular/angular.dart';
 import 'dart:html';
 
-@Decorator(selector: 'bit', exportExpressions: const ['bits', 'value'])
+@Decorator(selector: 'bit', exportExpressions: const ['bit', 'value'])
 class BitRenderer implements AttachAware {
 
+  int _byteNumber;
   int _bitNumber;
   Element e;
   Scope scope;
@@ -18,13 +19,17 @@ class BitRenderer implements AttachAware {
     _bitNumber = val;
   }
 
+  @NgOneWay('byte')
+  void set byteNumber(val) {
+    _byteNumber = val;
+  }
+
   void render(val) {
     e.text = val;
   }
 
   void attach() {
-    int index = _bitNumber - 1;
-    scope.watch("byte.bits[$index].value", (val, priorVal) {
+    scope.watch("bit($_byteNumber, $_bitNumber).value", (val, priorVal) {
       if (priorVal == null || priorVal == "") {
         render(val);
       } else {
