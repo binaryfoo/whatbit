@@ -11,13 +11,19 @@
 
   <div>
     <h3>Bits</h3>
-    <ul>
-      <li class="bit" ng-repeat="b in bytes">
-        <div class="byte">
-          <span class="number">Byte {{b}}:</span>
-          <span class="bit" ng-repeat="n in bitNumbers"><bit byte="b" bit="n"></bit></span>
-        </div>
-      </li>
-    </ul>
+    <table>
+      <thead>
+        <tr>
+          <th>Byte</th>
+          <th ng-repeat="n in bitNumbers">{{n}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="byte" ng-repeat="b in bytes">
+          <td>{{b}}</td>
+          <td ng-repeat="n in bitNumbers"><bit byte="b" bit="n"></bit></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

@@ -11,7 +11,7 @@ small {
     opacity: 0;
 }
 
-.bit.ng-enter {
+.byte.ng-enter {
     -webkit-transition: 200ms;
     -moz-transition: 200ms;
     -ms-transition: 200ms;
@@ -20,21 +20,8 @@ small {
     opacity: 0;
 }
 
-.bit.ng-enter.ng-enter-active {
+.byte.ng-enter.ng-enter-active {
     opacity: 1;
-}
-
-.bit-val.ng-leave {
-    opacity: 1;
-    -webkit-transition: 200ms;
-    -moz-transition: 200ms;
-    -ms-transition: 200ms;
-    -o-transition: 200ms;
-    transition: 200ms;
-}
-
-.bit-val.ng-leave.ng-leave-active {
-    opacity: 0;
 }
 
 .faded-add {
