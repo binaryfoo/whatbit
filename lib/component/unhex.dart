@@ -3,13 +3,14 @@ library whatbit_unhexme_component;
 import 'package:angular/angular.dart';
 import 'package:hexbit/hexbit.dart';
 import 'package:hexbit/math.dart';
+import 'package:quiver/iterables.dart' as q;
 import 'dart:html';
+import 'dart:math';
 
 @Component(selector: 'unhex', templateUrl: 'unhex.html', cssUrl: 'unhex.css')
 class UnHexMe {
   String _hex = "";
-  List<Bit> _bits = []; // need to mutate to prevent change detection algorithm think everything has changed
-  List<int> _bytes = [];
+  List<Bit> _bits = [];
   Scope _scope;
 
   String get hex => _hex;
@@ -17,7 +18,6 @@ class UnHexMe {
     _hex = val;
     if (val.length % 2 == 0) {
       _bits = Bit.fromHex(hex).toList();
-      _bytes = new List.generate(_bits.length ~/ 8, (i) => i+1);
     }
   }
 
@@ -26,9 +26,9 @@ class UnHexMe {
     return index < _bits.length ? _bits[index] : null;
   }
 
-  List<int> get bytes => _bytes;
+  Iterable<int> get bytes => q.range(1, (_bits.length ~/ 8) + 1);
 
-  List<int> bitNumbers = new List.generate(8, (i) => 8 - i);
+  Iterable<int> bitNumbers = q.range(8, 0, -1);
 
   bool get hasInput => _hex != null && _hex.length > 0;
 
