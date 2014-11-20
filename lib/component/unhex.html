@@ -1,27 +1,28 @@
 <div>
   <div>
-    <label>
-      Hex:
-      <input type="text" ng-model="hex" ng-keydown="keyDown($event)" keep-selection placeholder="A hex string. Eg '3f'"/>
-    </label>
+    <p>Hex(adecimal) to binary converter. Because the world doesn't have enough of them.</p>
+    <input type="text" ng-model="hex" ng-keydown="keyDown($event)" keep-selection placeholder="A hex string. Eg '3f'"/>
     <div>
       <small ng-show="hasInput">Try pressing up or down arrows</small>
     </div>
   </div>
 
   <div>
-    <h3>Bits</h3>
     <table>
       <thead>
         <tr>
           <th>Byte</th>
           <th ng-repeat="n in bitNumbers">{{n}}</th>
+          <th>Integer</th>
+          <th>Character</th>
         </tr>
       </thead>
       <tbody>
         <tr class="byte" ng-repeat="b in bytes">
           <td>{{b}}</td>
           <td ng-repeat="n in bitNumbers"><bit byte="b" bit="n"></bit></td>
+          <td class="right-align">{{byteAsDecimal(b)}}</td>
+          <td class="right-align">{{byteAsCharacter(b)}}</td>
         </tr>
       </tbody>
     </table>

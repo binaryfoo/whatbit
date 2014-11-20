@@ -7,7 +7,10 @@ import 'package:quiver/iterables.dart' as q;
 import 'dart:html';
 import 'dart:math';
 
-@Component(selector: 'unhex', templateUrl: 'unhex.html', cssUrl: 'unhex.css')
+@Component(selector: 'unhex',
+  templateUrl: 'unhex.html',
+  cssUrl: 'unhex.css',
+  exportExpressions: const ['byteAsDecimal', 'byteAsCharacter'])
 class UnHexMe {
   String _hex = "";
   BitSet _bits = new BitSet();
@@ -20,6 +23,8 @@ class UnHexMe {
   }
 
   Bit bit(int byte, int bit) => _bits.bit(byte, bit);
+  int byteAsDecimal(int byte) => _bits.byte(byte);
+  String byteAsCharacter(int byte) => new String.fromCharCode(byteAsDecimal(byte));
 
   Iterable<int> get bytes => q.range(1, _bits.byteCount + 1);
 
