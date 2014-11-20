@@ -16,9 +16,7 @@ class UnHexMe {
   String get hex => _hex;
   void set hex(String val) {
     _hex = val;
-    if (val.length % 2 == 0) {
-      _bits = Bit.fromHex(hex);
-    }
+    _bits = Bit.fromHex(hex);
   }
 
   Bit bit(int byte, int bit) => _bits.bit(byte, bit);
