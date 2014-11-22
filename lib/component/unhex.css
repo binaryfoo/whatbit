@@ -60,6 +60,10 @@ span {
     font-family: monospace;
 }
 
-.right-align {
-    text-align: right;
+.byte-translation {
+    text-align: center;
+}
+
+.byte-translation input {
+    width: 2em;
 }
