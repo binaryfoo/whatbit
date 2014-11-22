@@ -17,7 +17,10 @@ class UnHexMe {
 
   void set hex(String val) {
     _hex = val;
-    _bits = Bit.fromHex(hex);
+    try {
+      _bits = Bit.fromHex(hex);
+    } catch (e) {
+    }
   }
 
   void replaceByte(int byteNumber, String twoHexChars) {
@@ -49,12 +52,19 @@ class ByteView {
   String get decimal => source.byteAsDecimal(byteNumber).toString();
 
   set decimal(String val) {
-    source.replaceByte(byteNumber, int.parse(val).toRadixString(16));
+    _updateWith(val, (v) => int.parse(v).toRadixString(16));
   }
 
   String get character => source.byteAsCharacter(byteNumber);
 
   set character(String val) {
-    source.replaceByte(byteNumber, val != "" ? val.codeUnitAt(0).toRadixString(16) : "");
+    _updateWith(val, (v) => v != "" ? v.codeUnitAt(0).toRadixString(16) : "");
+  }
+
+  _updateWith(String val, String parser(String val)) {
+    try {
+      source.replaceByte(byteNumber, parser(val));
+    } catch (e) {
+    }
   }
 }

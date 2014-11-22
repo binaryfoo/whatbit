@@ -40,7 +40,7 @@ class UpDownKeyBound {
 
   void add(InputElement input, num increment) {
     var value = input.value;
-    if (value.length > 0) {
+    if (value.length > 0 && model.valid) {
       _Update update = _adder(input, increment);
       model.modelValue = update.value;
       model.render(update.value);

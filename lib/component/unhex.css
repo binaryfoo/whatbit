@@ -67,3 +67,9 @@ span {
 .byte-translation input {
     width: 2em;
 }
+
+.ng-invalid {
+    outline-color: red;
+    border-color: red;
+    transition: background ease 200ms;
+}

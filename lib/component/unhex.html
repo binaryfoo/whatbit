@@ -1,7 +1,7 @@
 <div>
   <div>
     <p>Hex(adecimal) to binary converter. Because the world doesn't have enough of them.</p>
-    <input type="text" ng-model="hex" key-cycle="hex" placeholder="A hex string. Eg '3f'"/>
+    <input type="text" ng-model="hex" key-cycle="hex" placeholder="A hex string. Eg '3f'" pattern="^[0-9a-fA-F]*$"/>
     <div>
       <small ng-show="hasInput">Try pressing up or down arrows</small>
     </div>
@@ -21,8 +21,12 @@
         <tr class="byte" ng-repeat="b in bytes">
           <td>{{b}}</td>
           <td ng-repeat="n in bitNumbers"><bit ng-model="bit(b,n).value"></bit></td>
-          <td class="byte-translation"><input type="text" ng-model="byte(b).decimal" key-cycle="int"/></td>
-          <td class="byte-translation"><input type="text" ng-model="byte(b).character" key-cycle="char"/></td>
+          <td class="byte-translation">
+            <input type="text" ng-model="byte(b).decimal" key-cycle="int" maxlength="3" pattern="^[0-9]*$"/>
+          </td>
+          <td class="byte-translation">
+            <input type="text" ng-model="byte(b).character" key-cycle="char" maxlength="1"/>
+          </td>
         </tr>
       </tbody>
     </table>
