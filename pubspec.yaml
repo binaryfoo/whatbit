@@ -9,6 +9,8 @@ dependencies:
     path: ../dart-bertlv
 dev_dependencies:
   unittest: any
+  mock: any
+  matcher: any
 transformers:
 - angular:
     html_files:
