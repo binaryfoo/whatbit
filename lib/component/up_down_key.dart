@@ -8,7 +8,7 @@ import 'dart:math';
 @Decorator(selector: 'input[key-cycle]')
 class UpDownKeyBound {
 
-  CharacterAdder _adder;
+  InputAdder _adder;
   Element e;
   NgModel model;
   Scope scope;
@@ -68,7 +68,7 @@ class Update {
 
 }
 
-typedef Update CharacterAdder(InputElement input, int b);
+typedef Update InputAdder(InputElement input, int b);
 
 Update hexAdder(InputElement input, int increment) {
   var start = input.selectionStart;
